@@ -73,24 +73,13 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 .phone{display:flex;align-items:stretch}
 .phone b{display:flex;align-items:center;padding:0 10px;background:#f7efe6;border:1px solid var(--line);border-right:0;border-radius:10px 0 0 10px;font-weight:700;color:var(--maroon)}
 .phone input{border-radius:0 10px 10px 0}
-.glist{display:grid;gap:8px}
-.grow{display:grid;grid-template-columns:30px 1fr 40px;align-items:center;gap:8px;animation:fadeUp .35s ease both}
-.grow .no{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#f7efe6;border:1px solid var(--line);font-family:var(--display);font-weight:700;font-size:13px;color:var(--maroon)}
-.grow.first .no{background:var(--maroon);border-color:var(--maroon);color:#fff}
-.grow .rm{width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--maroon-soft);font-size:18px;line-height:1;cursor:pointer;display:grid;place-items:center}
-.grow .rm:hover{background:#fdecef;color:#a3122f}
-.grow .rm:focus-visible,.addg:focus-visible{outline:2px solid var(--maroon);outline-offset:2px}
-.grow.first .rm{display:none}
-.grow.first input{grid-column:2/4}
-.grow.out{animation:fadeOut .25s ease forwards}
-@keyframes fadeOut{to{opacity:0;transform:translateX(12px)}}
-.gbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.addg{display:inline-flex;align-items:center;gap:6px;font-family:var(--display);font-weight:600;font-size:11.5px;letter-spacing:.14em;color:var(--maroon);background:#fff;border:1.5px dashed var(--gold);border-radius:999px;padding:10px 16px;cursor:pointer;transition:background .2s}
-.addg:hover{background:#fff6f7}
-.addg[hidden]{display:none}
-.addg b{font-size:17px;line-height:1}
-.gcount{font-weight:700;font-size:15px;color:var(--maroon-soft)}
-.gcount strong{font-family:var(--display);font-size:20px;color:var(--maroon);margin-left:6px}
+.row2.gm{grid-template-columns:auto 1fr;gap:12px}
+@media (max-width:420px){.row2.gm{grid-template-columns:1fr}}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden;width:max-content}
+.stepper button{width:46px;height:46px;border:0;background:#f7efe6;color:var(--maroon);font-size:22px;font-weight:700;cursor:pointer}
+.stepper button:focus-visible{outline:2px solid var(--maroon);outline-offset:-2px}
+.stepper input{width:64px;border:0;border-radius:0;text-align:center;font-size:18px;font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+.stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none}
 .chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .chips input,.fns input{position:absolute;opacity:0;pointer-events:none}
 .chips label{display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 4px 9px;cursor:pointer;font-weight:700;font-size:15px;color:var(--maroon);transition:background .2s,color .2s,border-color .2s,transform .15s}
@@ -144,14 +133,13 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
       <form id="f" novalidate>
         <fieldset style="--i:0">
           <legend><span class="n">1</span>GUEST</legend>
-          <div class="field"><span>Guest names <em>*</em></span>
-            <div class="glist" id="glist" aria-live="polite"></div>
+          <label class="field" for="name"><span>Guest name <em>*</em></span><input id="name" name="name" autocomplete="name" placeholder="e.g. Rakesh Patel &amp; family" maxlength="80"></label>
+          <div class="row2 gm">
+            <div class="field"><span>No. of guests <em>*</em></span>
+              <div class="stepper"><button type="button" id="minus" aria-label="Fewer guests">−</button><input id="guests" name="guests" type="number" inputmode="numeric" min="1" max="30" value="2" aria-label="Number of guests"><button type="button" id="plus" aria-label="More guests">+</button></div>
+            </div>
+            <label class="field" for="mobile"><span>Mobile no. <em>*</em></span><span class="phone"><b>+91</b><input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" maxlength="11"></span></label>
           </div>
-          <div class="gbar">
-            <button type="button" class="addg" id="addg"><b>+</b> ADD ANOTHER GUEST</button>
-            <span class="gcount">Total guests<strong id="gcount">1</strong></span>
-          </div>
-          <label class="field" for="mobile"><span>Mobile no. <em>*</em></span><span class="phone"><b>+91</b><input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" maxlength="11"></span></label>
         </fieldset>
 
         <fieldset style="--i:1">
@@ -178,7 +166,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
           <legend><span class="n">4</span>FUNCTIONS YOU WILL ATTEND</legend>
           <div class="fns">
             <input type="checkbox" name="fn" id="fn-mehendi" value="mehendi" checked><label for="fn-mehendi"><span class="tick"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="t"><b>Mehendi</b><small>Saturday evening</small></span><span class="d"><strong>12</strong>DEC</span></label>
-            <input type="checkbox" name="fn" id="fn-grahshanti" value="grahshanti" checked><label for="fn-grahshanti"><span class="tick"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="t"><b>Grah Shanti</b><small>Sunday morning</small></span><span class="d"><strong>13</strong>DEC</span></label>
+            <input type="checkbox" name="fn" id="fn-grahshanti" value="grahshanti" checked><label for="fn-grahshanti"><span class="tick"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="t"><b>Gruh Shanti</b><small>Sunday morning</small></span><span class="d"><strong>13</strong>DEC</span></label>
             <input type="checkbox" name="fn" id="fn-sangeet" value="sangeet" checked><label for="fn-sangeet"><span class="tick"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="t"><b>Sangeet Sandhya</b><small>Sunday evening</small></span><span class="d"><strong>13</strong>DEC</span></label>
             <input type="checkbox" name="fn" id="fn-marriage" value="marriage" checked><label for="fn-marriage"><span class="tick"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="t"><b>Marriage · Shubh Vivah</b><small>Monday evening</small></span><span class="d"><strong>14</strong>DEC</span></label>
           </div>
@@ -212,25 +200,15 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
   var $=function(id){return document.getElementById(id)};
   var f=$("f"),err=$("err");
 
-  /* guest names: dynamic rows */
-  var gl=$("glist"),MAX=30;
-  function renum(){var rows=gl.querySelectorAll(".grow");[].forEach.call(rows,function(r,k){r.classList.toggle("first",k===0);r.querySelector(".no").textContent=k+1;
-      var inp=r.querySelector("input");inp.placeholder=k===0?"Your full name":"Guest "+(k+1)+" full name";inp.setAttribute("aria-label","Guest "+(k+1)+" name");
-      r.querySelector(".rm").setAttribute("aria-label","Remove guest "+(k+1))});
-    $("gcount").textContent=Math.max(1,names().length);$("addg").hidden=rows.length>=MAX}
-  function addRow(val,focus){if(gl.children.length>=MAX)return;
-    var r=document.createElement("div");r.className="grow";
-    r.innerHTML='<span class="no" aria-hidden="true"></span><input type="text" autocomplete="off" maxlength="60"><button type="button" class="rm">\u2715</button>';
-    var inp=r.querySelector("input");inp.value=val||"";
-    inp.addEventListener("input",function(){this.classList.remove("bad");$("gcount").textContent=Math.max(1,names().length)});
-    inp.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();var nx=r.nextElementSibling;if(nx)nx.querySelector("input").focus();else if(this.value.trim())addRow("",true)}});
-    r.querySelector(".rm").addEventListener("click",function(){if(gl.children.length<2)return;var pv=r.previousElementSibling||r.nextElementSibling;r.classList.add("out");
-      setTimeout(function(){r.remove();renum();if(pv)pv.querySelector("input").focus()},220)});
-    gl.appendChild(r);renum();if(focus)inp.focus()}
-  $("addg").addEventListener("click",function(){addRow("",true)});
-  var first="";try{var n=new URLSearchParams(location.search).get("to");if(n)first=n.replace(/[<>]/g,"").slice(0,60)}catch(e){}
-  addRow(first,false);
-  function names(){return[].map.call(gl.querySelectorAll("input"),function(i){return i.value.trim()}).filter(Boolean)}
+  /* name from link: ?to=Name */
+  try{var n=new URLSearchParams(location.search).get("to");if(n)$("name").value=n.replace(/[<>]/g,"").slice(0,60)}catch(e){}
+  $("name").addEventListener("input",function(){this.classList.remove("bad")});
+
+  /* guests stepper */
+  function setG(v){v=Math.max(1,Math.min(30,parseInt(v,10)||1));$("guests").value=v}
+  $("minus").addEventListener("click",function(){setG(+$("guests").value-1)});
+  $("plus").addEventListener("click",function(){setG(+$("guests").value+1)});
+  $("guests").addEventListener("change",function(){setG(this.value)});
 
   /* mobile: digits only */
   $("mobile").addEventListener("input",function(){var d=this.value.replace(/\D/g,"").slice(-10);this.value=d.length>5?d.slice(0,5)+" "+d.slice(5):d;this.classList.remove("bad")});
@@ -247,7 +225,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
   function collect(){
     var mode=(f.querySelector("input[name=mode]:checked")||{}).value||"";
     var fns={};[].forEach.call(f.querySelectorAll("input[name=fn]"),function(c){fns[c.value]=c.checked});
-    return{form:"relatives",names:names(),name:names().join(", ").slice(0,390),guests:names().length,mobile:$("mobile").value.replace(/\D/g,""),
+    return{form:"relatives",name:$("name").value.trim().slice(0,120),guests:Math.max(1,parseInt($("guests").value,10)||1),mobile:$("mobile").value.replace(/\D/g,""),
       arrivalDate:fmtDate($("adate").value),arrivalTime:fmtTime($("atime").value),mode:mode,
       train:mode==="Train"?$("train").value.trim().slice(0,120):"",flight:mode==="Flight"?$("flight").value.trim().slice(0,120):"",road:mode==="Road"?($("road").value.trim().slice(0,120)||"Yes"):"",
       mehendi:fns.mehendi,grahShanti:fns.grahshanti,sangeet:fns.sangeet,marriage:fns.marriage,note:$("note").value.trim().slice(0,400),submittedAt:new Date().toISOString()}}
@@ -260,16 +238,15 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline:none;bor
 
   $("send").addEventListener("click",function(){err.hidden=true;
     var d=collect();
-    if(!d.name)return fail("Please enter at least one guest name.",gl.querySelector("input"));
-    [].forEach.call(gl.querySelectorAll("input"),function(i){if(!i.value.trim()&&gl.children.length>1)i.closest(".grow").remove()});renum();
+    if(!d.name)return fail("Please enter the guest name.",$("name"));
     if(d.mobile.length!==10)return fail("Please enter a 10-digit mobile number.",$("mobile"));
     if(!d.mehendi&&!d.grahShanti&&!d.sangeet&&!d.marriage)return fail("Please tick at least one function you will attend.");
     if(SHEET_URL.indexOf("http")===0)send(d);
-    var list=[d.mehendi&&"Mehendi",d.grahShanti&&"Grah Shanti",d.sangeet&&"Sangeet",d.marriage&&"Marriage"].filter(Boolean).join(", ");
+    var list=[d.mehendi&&"Mehendi",d.grahShanti&&"Gruh Shanti",d.sangeet&&"Sangeet",d.marriage&&"Marriage"].filter(Boolean).join(", ");
     var travel=d.mode==="Train"?"Train – "+(d.train||"details later"):d.mode==="Flight"?"Flight – "+(d.flight||"details later"):d.mode==="Road"?"By road – "+d.road:"Not decided yet";
     var esc=function(s){var t=document.createElement("span");t.textContent=s;return t.innerHTML};
-    $("summary").innerHTML="<div><b>"+d.guests+" guest"+(d.guests>1?"s":"")+":</b> "+esc(d.name)+"</div><div>+91 "+esc(d.mobile)+"</div><div>Arriving: "+esc((d.arrivalDate||"date TBC")+(d.arrivalTime?" at "+d.arrivalTime:""))+"</div><div>Travel: "+esc(travel)+"</div><div>Functions: "+esc(list)+"</div>";
-    var msg="Guest details – Vaidehi & Virang's wedding\nGuests ("+d.guests+"):\n"+d.names.map(function(x,k){return"  "+(k+1)+". "+x}).join("\n")+"\nMobile: +91 "+d.mobile+"\nArriving Surat: "+(d.arrivalDate||"TBC")+(d.arrivalTime?" "+d.arrivalTime:"")+"\nTravel: "+travel+"\nFunctions: "+list+(d.note?"\nNote: "+d.note:"");
+    $("summary").innerHTML="<div><b>"+esc(d.name)+"</b> · "+d.guests+" guest"+(d.guests>1?"s":"")+"</div><div>+91 "+esc(d.mobile)+"</div><div>Arriving: "+esc((d.arrivalDate||"date TBC")+(d.arrivalTime?" at "+d.arrivalTime:""))+"</div><div>Travel: "+esc(travel)+"</div><div>Functions: "+esc(list)+"</div>";
+    var msg="Guest details – Vaidehi & Virang's wedding\nName: "+d.name+"\nNo. of guests: "+d.guests+"\nMobile: +91 "+d.mobile+"\nArriving Surat: "+(d.arrivalDate||"TBC")+(d.arrivalTime?" "+d.arrivalTime:"")+"\nTravel: "+travel+"\nFunctions: "+list+(d.note?"\nNote: "+d.note:"");
     $("wa").href="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(msg);
     f.hidden=true;$("done").hidden=false;$("done").scrollIntoView({block:"center",behavior:"smooth"});
   });
